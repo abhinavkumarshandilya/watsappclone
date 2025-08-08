@@ -1,7 +1,1 @@
-# Firebase Studio
-
-This is a NextJS starter in Firebase Studio.
-
-To get started, take a look at src/app/page.tsx.
-# watsappclone
-# watsappclone
+<img width="1907" height="973" alt="image" src="https://github.com/user-attachments/assets/9e85d4a7-203c-4587-aea2-d552e022241d" />
