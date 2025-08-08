@@ -17,16 +17,16 @@ interface ChatWindowProps {
 
 export function ChatWindow({ chat, onSendMessage, onBack }: ChatWindowProps) {
   const [messages, setMessages] = useState(chat.messages);
-  const scrollAreaRef = useRef<HTMLDivElement>(null);
+  const scrollViewportRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     setMessages(chat.messages);
   }, [chat.messages]);
 
   useEffect(() => {
-    if (scrollAreaRef.current) {
-      scrollAreaRef.current.scrollTo({
-        top: scrollAreaRef.current.scrollHeight,
+    if (scrollViewportRef.current) {
+      scrollViewportRef.current.scrollTo({
+        top: scrollViewportRef.current.scrollHeight,
         behavior: "smooth",
       });
     }
@@ -84,7 +84,7 @@ export function ChatWindow({ chat, onSendMessage, onBack }: ChatWindowProps) {
       </header>
 
       <div className="flex-grow overflow-hidden relative">
-         <ScrollArea className="h-full" viewportRef={scrollAreaRef}>
+         <ScrollArea className="h-full" viewportProps={{ref: scrollViewportRef}}>
           <div className="px-4 py-2 space-y-2">
             {messages.map((message) => (
               <MessageBubble key={message.id} message={message} chat={chat}/>
