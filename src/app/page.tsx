@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useMemo, useEffect } from "react";
-import { MessageCircle, Rss } from "lucide-react";
+import { Rss } from "lucide-react";
 
 import { ChatList } from "@/components/whatsfake/chat-list";
 import { ChatWindow } from "@/components/whatsfake/chat-window";
@@ -15,10 +15,10 @@ export default function Home() {
   const [selectedChatId, setSelectedChatId] = useState<string | null>(null);
 
   useEffect(() => {
-    if (window.innerWidth >= 768 && initialChats.length > 0) {
+    if (window.innerWidth >= 768 && initialChats.length > 0 && !selectedChatId) {
       setSelectedChatId(initialChats[0].id);
     }
-  }, []);
+  }, [selectedChatId]);
 
   const selectedChat = useMemo(() => {
     return chats.find((c) => c.id === selectedChatId) ?? null;
