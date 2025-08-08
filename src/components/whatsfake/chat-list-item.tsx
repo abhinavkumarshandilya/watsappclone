@@ -1,3 +1,4 @@
+
 "use client";
 
 import type { Chat } from "@/lib/types";
@@ -5,6 +6,7 @@ import { cn } from "@/lib/utils";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { format } from "date-fns";
 import { StatusIcon } from "./status-icon";
+import { useEffect, useState } from "react";
 
 interface ChatListItemProps {
   chat: Chat;
@@ -13,6 +15,12 @@ interface ChatListItemProps {
 }
 
 export function ChatListItem({ chat, isSelected, onSelect }: ChatListItemProps) {
+  const [isClient, setIsClient] = useState(false);
+
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
+  
   const lastMessage = chat.messages[chat.messages.length - 1];
 
   const getInitials = (name: string) => {
@@ -42,14 +50,16 @@ export function ChatListItem({ chat, isSelected, onSelect }: ChatListItemProps) 
       <div className="flex-grow border-b border-border pb-4">
         <div className="flex items-center justify-between">
           <p className="font-semibold text-foreground">{chat.name}</p>
-          <p
-            className={cn(
-              "text-xs",
-              isSelected ? "text-accent-foreground font-medium" : "text-muted-foreground"
-            )}
-          >
-            {format(lastMessage.timestamp, "p")}
-          </p>
+          {isClient && (
+            <p
+              className={cn(
+                "text-xs",
+                isSelected ? "text-accent-foreground font-medium" : "text-muted-foreground"
+              )}
+            >
+              {format(lastMessage.timestamp, "p")}
+            </p>
+          )}
         </div>
         <div className="flex items-center mt-1">
           {lastMessage.sender === 'me' && <StatusIcon status={lastMessage.status} className="mr-1 h-4 w-4 flex-shrink-0"/>}
